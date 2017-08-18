@@ -1,0 +1,1 @@
+export const ABOUTME_DEFAULT = 'ABOUTME_DEFAULT';
