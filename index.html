@@ -2,14 +2,57 @@
 <html lang="en">
   <head>
     <title></title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="./app.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="cleartype" content="on">
   </head>
   <body>
     <div id="root"></div>
-    <script src="./manifest.js"></script>
-    <script src="./vendor.js"></script>
-    <script src="./app.js"></script>
+    <script crossorigin src="//g.alicdn.com/dingding/open-develop/1.9.0/dingtalk.js"></script>
+    <script>
+      (function() {
+          window.__HOST__ = 'your host';
+          var version = `${cdn_version}`;
+          var host = location.host;
+          var resouces_js = [
+            'manifest',
+            'vendor',
+            'app'
+          ];
+          var js_index = 0;
+          var create_css = true;
+          if (host.indexOf('test' + window.__HOST__) > -1) {
+              host = '//your test cdn/' + version + '/';
+          } else if (host.indexOf(window.__HOST__) > -1) {
+              host = '//your releases cdn/' + version + '/';
+          } else {
+              host = './';
+              resouces_js.splice(2, 0, 'index');
+              create_css = false;
+          }
+          if (create_css){
+            var stylesheet = document.createElement('link');
+            stylesheet.rel = 'stylesheet';
+            stylesheet.href = host + 'app.css';
+            document.head.appendChild(stylesheet);
+          }
+          function dynamicLoaderJS(index){
+            var script = document.createElement('script');
+            script.src = host + resouces_js[index] +'.js';
+            script.setAttribute('crossorigin', '');
+            script.onload = function(e){
+              js_index++;
+              if (js_index > (resouces_js.length - 1)){
+                return;
+              }
+              dynamicLoaderJS(js_index);
+            }
+            document.head.appendChild(script);
+          }
+          dynamicLoaderJS(js_index);
+      }());
+    </script>
   </body>
 </html>
