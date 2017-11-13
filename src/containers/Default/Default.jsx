@@ -28,7 +28,6 @@ class DefaultView extends PureComponent{
 
   componentWillMount(){
     this.props.getAsyncDefault({'name': 'icepy'});
-    this.props.getAsyncDefault({'name': 'icepy'});
   }
 
   componentDidMount(){
