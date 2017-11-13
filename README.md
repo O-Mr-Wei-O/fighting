@@ -105,6 +105,16 @@ $ npm run build  // 打包可以发布的资源
 - components 这个页面独用的组件
 - flow 这个页面需要的action reducers
 
+## 发布
+
+使用 `npm run build` 构建待发布的资源，请忽略根目录中的`index.html`。
+
+建议发布规则：
+
+- 打包出来的dist发布到CDN中
+- 自己在服务端创建一个index.html，使用服务端输出的方式来引用一个version版本变量
+- 这个变量对应CDN的版本号
+
 # LICENSE
 
 MIT License
